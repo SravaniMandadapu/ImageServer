@@ -26,9 +26,9 @@ router.post("/SignUp", (req,res,next)=>{
                 }else{
                     const newuser=new User({
                         _id:new mongoose.Types.ObjectId,
-                        Firstname:req.body.Firstname,
-                        Middlename:req.body.Middlename,
-                        Lastname:req.body.Lastname,
+                        FirstName:req.body.FirstName,
+                        MiddleName:req.body.MiddleName,
+                        LastName:req.body.LastName,
                         email:req.body.email,
                         password:hashPassword
                     })

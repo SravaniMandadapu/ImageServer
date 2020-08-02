@@ -1,7 +1,9 @@
 const express=require("express")
 const app=express()
-const regRoutes=require("./routes/register")
+const signupRoutes=require("./routes/signup")
 const loginRoutes=require("./routes/login")
+const uploadRoutes=require("./routes/upload")
+const ImgRoutes=require("./routes/imageslist")
 const morgan =require("morgan")
 const cors=require("cors")
 const bodyparser=require("body-parser")
@@ -11,6 +13,7 @@ const options={
     useUnifiedTopology: true,
     useCreateIndex:true
 }
+const authtoken=require("./middleware/authToken")
 
 
 
@@ -24,7 +27,9 @@ app.use(bodyparser.json())
 
 
 //Connecting to route API
-app.use("/",regRoutes)
+app.use("/",signupRoutes)
 app.use("/",loginRoutes)
+app.use("/",authtoken,uploadRoutes)
+app.use("/",authtoken,ImgRoutes)
 
 module.exports = app;

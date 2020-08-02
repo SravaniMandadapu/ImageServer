@@ -3,12 +3,7 @@ import { Component } from 'react'
 import axios from "axios"
 
 
-let axiosConfig = {
-    headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-        "Access-Control-Allow-Origin": "*",
-    }
-  };
+
  class Login extends Component {
      constructor(props) {
          super(props)
@@ -41,24 +36,25 @@ let axiosConfig = {
      
      
      //submit Handler
-     submitHandler =() =>{
+     submitHandler = (e) =>{
+         e.preventDefault()
           if (!(this.state.email === '' || this.state.password === '')
              
              && (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(this.state.email))) {
               
-             
-              axios.post('http://localhost:9000/login',
+            
+            axios.post("http://localhost:9000/login",
               {
+
                    email: this.state.email,
                    password: this.state.password
-                }, axiosConfig)
-                .then(res=>{
+                }).then(res=>{
                     console.log(res)
                 })
                 .catch(err=>{
                      console.log(err)
                 })
-      
+                
             }else{
                 alert("please enter valid details")
             }

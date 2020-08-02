@@ -2,14 +2,14 @@ const mongoose=require("mongoose")
 
 const userSchema= mongoose.Schema({
     _id:mongoose.Schema.Types.ObjectId,
-    Firstname:{
+    FirstName:{
         type:String,
         required:true
     },
-    Middlename:{
+    MiddleName:{
         type: String
     },
-    Lastname:{
+    LastName:{
         type:String,
         required:true
 
