@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import axios from "axios"
+import {Button, FormGroup, FormControl, Image, Container,Row, Col} from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 class Index extends Component {
     constructor(props) {
@@ -11,34 +13,59 @@ class Index extends Component {
         }
     }
 
-    componentDidMount (){
-        axios.get("http://localhost:9000/images")
+   componentDidMount (){
+       axios.get("http://localhost:9000/images",{
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('userTokenTime')).token
+            }
+          })
+         
        
-        .catch(err=>{
-            console.log(err)
+         .catch(err=>{
+           console.log(err)
         })
         .then(res=>{
-            console.log(res)            
+           console.log(res)            
             this.setState({ 
-                images: res
-            })
-        })
+               images: res.data,
+               isLoaded: true
+           },()=>console.log(this.state))
+         })
     }
     
     render() {
         const {images} =this.state
+        const imgstyle={
+          maxWidth: 300,
+          maxHeight: 300,
+          border:20,
+          margin:10,
+          padding:10
+      
+        
+
+        }
         return (
-            <div>
+            <Container >
                PHotoGRaPHy 
                {
-                   images.length ? images.map(image=> 
-                   <div key= {image._id}>
-                    {image.URL}
-                   </div> ):
-                    null
+                   images.map(image=> 
+                  
+                   <Row className="d-flex">
+                      <div className="col-md-3 col-sm-6"  key= {image._id}>
+                      
+                        <Image src={ image.URL}  style={imgstyle} rounded/>	
+                      
+                    
+                      </div>
+                    </Row>
+                   
+                   )
+                    
                     
                }
-            </div>
+            </Container>
         )
     }
 }

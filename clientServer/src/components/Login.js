@@ -1,6 +1,10 @@
 import React from "react";
 import { Component } from 'react'
 import axios from "axios"
+import {Button, FormGroup, FormControl, Form, Container,Row, Col} from 'react-bootstrap'
+
+
+
 
 
 
@@ -10,7 +14,8 @@ import axios from "axios"
      
          this.state = {
               email:" ",
-              password:" "
+              password:" ",
+              token: " "
             }
             this.submitHandler = this.submitHandler.bind(this);
             this.emailChangeHandler = this.emailChangeHandler.bind(this);
@@ -50,6 +55,16 @@ import axios from "axios"
                    password: this.state.password
                 }).then(res=>{
                     console.log(res)
+                    this.setState({
+                        token: res.data.accesstoken
+                    })
+
+                    const data = {
+                        token: this.state.token,
+                        time: new Date().getTime()
+                      }
+                      localStorage.setItem('userTokenTime', JSON.stringify(data));
+
                 })
                 .catch(err=>{
                      console.log(err)
@@ -63,33 +78,33 @@ import axios from "axios"
      
     render() {
         return (
-            <form onSubmit={this.submitHandler.bind(this)}>
-                <div>
-                    
-                   <div>
-                        <input 
+            <Form onSubmit={this.submitHandler.bind(this)}>
+                <Container>
+                   <h1>Login</h1>
+                     <FormGroup>
+                        <FormControl
                         type="email"
                         name="email"
                         placeholder="email address"
                         onChange={this.emailChangeHandler}
                         required />
 
-                    </div>
-                    <div>
-                        <input 
+                    </FormGroup>
+                    <FormGroup>
+                        <FormControl
                         type="password"
                         name="password"
                         placeholder="password"
                         onChange={this.passwordChangeHandler}
                         required />
-                    </div>
-                    <div>
-                        <button type="submit" onClick={this.submitHandler}></button>
+                    </FormGroup>
+                    <FormGroup>
+                        <Button bsstyle="primary"  type="submit" onClick={this.submitHandler}>Login</Button>
 
-                    </div>
-                                    
-                </div>
-            </form>
+                    </FormGroup>
+                                   
+                </Container>
+            </Form>
         )
     }
 }

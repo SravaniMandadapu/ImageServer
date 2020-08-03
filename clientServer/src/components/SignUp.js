@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from "axios"
+import {Button, FormGroup, FormControl, Form, Container,Row, Col} from 'react-bootstrap'
 
 class SignUp extends Component {
 
@@ -86,10 +87,11 @@ class SignUp extends Component {
 
     render() {
         return (
-           <form onSubmit={this.submitHandler.bind(this)}>
-                <div>
-                <div> 
-                    <input 
+           <Form onSubmit={this.submitHandler.bind(this)}>
+                <Container>
+                   <h1>SignUp</h1> 
+                <FormGroup> 
+                    <FormControl 
                         id="first-name"
                         type= "text"
                         name="FirstName"
@@ -97,27 +99,27 @@ class SignUp extends Component {
                         onChange={this.firstnameChangeHandler}
                         required 
                     />
-                </div> 
-                <div> 
-                   <input 
+                </FormGroup> 
+                <FormGroup> 
+                   <FormControl
                         id="middle-name"
                         type="text"
                         name="MiddleName"
                         placeholder="Middlename (Optional)"
                         onChange={this.middlenameChangeHandler}
                    />
-                </div> 
-                <div> 
-                   <input 
+                </FormGroup> 
+                <FormGroup> 
+                   <FormControl 
                         id="last-name"
                         type="text"
                         name="LastName"
                         placeholder="Lastname"
                         onChange={this.lastnameChangeHandler}
                         required />
-                </div> 
-                <div>  
-                   <input 
+                </FormGroup> 
+                <FormGroup>  
+                   <FormControl
                         id="email"
                         type="email"
                         name="email"
@@ -125,9 +127,9 @@ class SignUp extends Component {
                         onChange={this.emailChangeHandler}
                         required
                     />
-                </div> 
-                <div>   
-                   <input 
+                </FormGroup> 
+                <FormGroup>   
+                   <FormControl
                         id="password"
                         type="password"
                         name="password"
@@ -135,13 +137,13 @@ class SignUp extends Component {
                         onChange={this.passwordChangeHandler}
                         required 
                     />
-                </div> 
-                <div>   
+                </FormGroup> 
+                <FormGroup>   
                
-                    <button type="submit" onClick={this.submitHandler}>Register</button>
-                </div>
-                </div>
-            </form>
+                    <Button type="submit" onClick={this.submitHandler}>Register</Button>
+                </FormGroup>
+                </Container>
+            </Form>
         )
     }
 }

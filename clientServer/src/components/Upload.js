@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
+import {Button, FormGroup, FormControl, Form, Container,Row, Col} from 'react-bootstrap'
 
 class Upload extends Component {
 
@@ -46,19 +47,22 @@ class Upload extends Component {
     
     render() {
         return (
-            <form onSubmit={this.submitHandler.bind(this)}>
-              <div>
-                  <input 
+            <Form onSubmit={this.submitHandler.bind(this)}>
+              <Container>
+                  <h1>Upload</h1>
+              <FormGroup>
+                  <FormControl 
                     type="text"
                     name="URL"
                     placeholder="Image URL"
                     onChange={this.imageURLhandler}
                      required/>
-              </div>
-              <div>
-                  <button type="submit" onClick={this.submitHandler}>Upload</button>
-              </div>
-        </form>
+              </FormGroup>
+              <FormGroup>
+                  <Button type="submit" onClick={this.submitHandler}>Upload</Button>
+              </FormGroup>
+              </Container>
+        </Form>
         )
     }
 }
