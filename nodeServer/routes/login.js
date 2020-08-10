@@ -6,6 +6,9 @@ const bcrypt=require("bcrypt")
 const User=require("../models/user")
 const jwt=require("jsonwebtoken")
 
+
+
+
 router.post("/login",(req,res,next)=>{
 
     User.find({email:req.body.email})
@@ -13,10 +16,12 @@ router.post("/login",(req,res,next)=>{
     .then(user=>{
         if(user.length <1){
         //No User exists
+        
         return res.status(401).json({
-            message:"Auth failed"
+            message:"Auth failed",
+            
         })
-    }else{
+        }else{
         bcrypt.compare(req.body.password,user[0].password,(err,result)=>{
             if(err){
                 return res.status(401).json({

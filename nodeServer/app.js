@@ -14,6 +14,8 @@ const options={
     useCreateIndex:true
 }
 const authtoken=require("./middleware/authToken")
+const user=require("./models/user")
+
 
 
 
@@ -24,6 +26,14 @@ app.use(morgan(".dev"))
 app.use(cors())
 app.use(bodyparser.urlencoded({extended: false}))
 app.use(bodyparser.json())
+app.use("/images",express.static("Imageuploads"));
+
+
+app.use(function(req,res,next){
+    res.locals.currentuser=req.user;
+    console.log(req.user)
+  next()
+})
 
 
 //Connecting to route API
@@ -31,5 +41,6 @@ app.use("/",signupRoutes)
 app.use("/",loginRoutes)
 app.use("/",authtoken,uploadRoutes)
 app.use("/",authtoken,ImgRoutes)
+
 
 module.exports = app;

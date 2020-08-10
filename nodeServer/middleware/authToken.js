@@ -2,6 +2,7 @@
 const jwt=require("jsonwebtoken")
 
 
+
 authenticateToken = (req, res, next) => {
     try {
       const token = req.headers.authorization.split(" ")[1];
@@ -12,7 +13,8 @@ authenticateToken = (req, res, next) => {
     } catch (error) {
       
       return res.status(401).json({
-        message: 'Auth failed'
+        message: 'Auth failed',
+        
       });
     }
   }

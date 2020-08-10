@@ -46,5 +46,6 @@
     "url": "SravaniMandadapu"
   },
   "author": "Sravani",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {}
 }

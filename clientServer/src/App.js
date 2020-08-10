@@ -4,18 +4,22 @@ import Login from "./components/Login"
 import SignUp from "./components/SignUp"
 import Upload from './components/Upload';
 import Index from "./components/Index"
-import Layout from "./components/Layout"
+import Logout from "./components/Logout"
+import  Landing from "./components/Landing"
+
 
 function App() {
   return (
     
     <React.Fragment>
-      <Layout>
+      
          <Route exact path="/login" component={Login} />
          <Route exact path="/SignUp" component={SignUp} />
-         <Route exact path="/Upload"  component={Upload} />
+         <Route exact path="/images/upload"  component={Upload} />
          <Route exact path="/images" component={Index} />
-        </Layout>
+         <Route exact path="/logout"  component={Logout} />
+         <Route exact path="/" component={Landing} />
+      
     </React.Fragment>
     
   );

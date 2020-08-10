@@ -1,7 +1,9 @@
 import React from "react";
 import { Component } from 'react'
 import axios from "axios"
+import {Redirect}  from "react-router-dom"
 import {Button, FormGroup, FormControl, Form, Container,Row, Col} from 'react-bootstrap'
+import NavbarComponent from "./NavbarComponent";
 
 
 
@@ -15,7 +17,11 @@ import {Button, FormGroup, FormControl, Form, Container,Row, Col} from 'react-bo
          this.state = {
               email:" ",
               password:" ",
-              token: " "
+              token: " ",
+              redirect: localStorage.getItem("userTokenTime")  ?  true :false,
+              errmsg: ""
+
+              
             }
             this.submitHandler = this.submitHandler.bind(this);
             this.emailChangeHandler = this.emailChangeHandler.bind(this);
@@ -42,6 +48,7 @@ import {Button, FormGroup, FormControl, Form, Container,Row, Col} from 'react-bo
      
      //submit Handler
      submitHandler = (e) =>{
+         
          e.preventDefault()
           if (!(this.state.email === '' || this.state.password === '')
              
@@ -58,17 +65,25 @@ import {Button, FormGroup, FormControl, Form, Container,Row, Col} from 'react-bo
                     this.setState({
                         token: res.data.accesstoken
                     })
-
+                    
                     const data = {
                         token: this.state.token,
-                        time: new Date().getTime()
+                        time: new Date().getTime(),
+                        email:this.state.email
                       }
                       localStorage.setItem('userTokenTime', JSON.stringify(data));
-
+                  this.setState({
+                      redirect: true
+                  })
+                  
                 })
                 .catch(err=>{
-                     console.log(err)
-                })
+                     this.setState({
+                         errmsg: err.message
+                         
+                     })
+                     }  
+            )
                 
             }else{
                 alert("please enter valid details")
@@ -77,8 +92,20 @@ import {Button, FormGroup, FormControl, Form, Container,Row, Col} from 'react-bo
      
      
     render() {
+        
+      //Handling Success Login  
+    if(this.state.redirect) return <Redirect to="/images" />
+
+    //Handling Err messages
+     if(this.state.errmsg) return <div>
+         <NavbarComponent />
+         <h3>{this.state.errmsg}</h3>
+     </div>
+
         return (
+            
             <Form onSubmit={this.submitHandler.bind(this)}>
+                <NavbarComponent />
                 <Container>
                    <h1>Login</h1>
                      <FormGroup>
@@ -102,6 +129,7 @@ import {Button, FormGroup, FormControl, Form, Container,Row, Col} from 'react-bo
                         <Button bsstyle="primary"  type="submit" onClick={this.submitHandler}>Login</Button>
 
                     </FormGroup>
+
                                    
                 </Container>
             </Form>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import axios from "axios"
 import {Button, FormGroup, FormControl, Form, Container,Row, Col} from 'react-bootstrap'
+import NavbarComponent from "./NavbarComponent"
+import {Link} from "react-router-dom"
 
 class SignUp extends Component {
 
@@ -12,7 +14,9 @@ class SignUp extends Component {
              MiddleName:"",
              LastName:"",
              email:"",
-             password:""
+             password:"",
+             successMsg:"",
+             failureMsg:""
 
         }
         this.submitHandler=this.submitHandler.bind(this)
@@ -53,7 +57,8 @@ class SignUp extends Component {
     //Password Change Handler
     passwordChangeHandler=e=>{
         this.setState({
-            password:e.target.value
+            password:e.target.value,
+            
         })
     }
     //submit Handler
@@ -70,9 +75,15 @@ class SignUp extends Component {
                 password: this.state.password
             })
             .then(res => {
+                this.setState({
+                    successMsg:res.data.message
+                })
                 console.log(res)
              })
             .catch(err => {
+                this.setState({
+                    failureMsg:err.message
+                })
                 console.log(err);
             });
         } else {
@@ -86,8 +97,25 @@ class SignUp extends Component {
     
 
     render() {
+        //Handling Success Response
+    if(this.state.successMsg) return <div>
+        <NavbarComponent />
+        <h3>{this.state.successMsg}</h3>
+        </div>
+
+
+//handling Error messages
+    if(this.state.failureMsg) return <div>
+        <NavbarComponent />
+        <h3>{this.state.failureMsg}</h3>
+
+    </div>
+
+
+//Rendering SignUp form
         return (
            <Form onSubmit={this.submitHandler.bind(this)}>
+               <NavbarComponent />
                 <Container>
                    <h1>SignUp</h1> 
                 <FormGroup> 

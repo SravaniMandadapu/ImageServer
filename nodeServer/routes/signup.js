@@ -13,7 +13,7 @@ router.post("/SignUp", (req,res,next)=>{
 
         //find if user exists or not 
         if(newuser.length>=1){
-            return res.status(409).json({
+            return res.json({
                 message:"user already exists"
             })
         }else{
@@ -34,11 +34,14 @@ router.post("/SignUp", (req,res,next)=>{
                     })
                     newuser.save()
                     .then(newuser=>{
+                        res.json({
+                            message: "SignUp Successful"
+                        })
                         console.log(newuser)
                     })
                     .catch(err =>{
                         res.status(500).json({
-                            error: err
+                            message: err.message
                         })
                     })
                 }
